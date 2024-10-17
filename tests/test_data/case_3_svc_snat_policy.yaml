@@ -1,0 +1,8 @@
+apiVersion: aci.snat/v1
+kind: SnatPolicy
+metadata:
+  name: case3-svc-snatpolicy
+  namespace: case3-ns
+spec:
+  selector:
+     namespace: case3-ns

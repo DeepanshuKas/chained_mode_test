@@ -1,0 +1,11 @@
+apiVersion: aci.snat/v1
+kind: SnatPolicy
+metadata:
+  name: port-exhaust-pol-2
+spec:
+  snatIp:
+    -  10.3.101.201/32
+  selector:
+    namespace: default
+    labels:
+      test: port-exhaust-2

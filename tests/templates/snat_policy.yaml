@@ -1,0 +1,24 @@
+apiVersion: aci.snat/v1
+kind: SnatPolicy
+metadata:
+  name: {{ input['name'] }}
+  namespace: {{ input.get('namespace', 'default') }}
+spec:
+  {% if 'dest_ips' in input %}
+  destIp:
+    {% for ip in input['dest_ips'] %}
+    - {{ ip }}
+    {% endfor %}
+  {% endif %}
+  {% if 'snat-ip' in input %}
+  snatIp:
+    -  {{ input['snat-ip'] }}
+  {% endif %}
+  selector:
+    namespace: {{ input.get('namespace', 'default') }}
+    {% if 'labels' in input %}
+    labels:
+      {% for k, v in input['labels'].items() %}
+      {{ k }}: {{ v }}
+      {% endfor %}
+    {% endif %}

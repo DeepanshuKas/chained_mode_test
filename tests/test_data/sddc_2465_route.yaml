@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: docker-demo
+  name: docker-demo
+  namespace: ci-sddc2465-pod-scaling
+spec:
+  port:
+    targetPort: 8080
+  subdomain: ""
+  to:
+    kind: Service
+    name: docker-demo
+    weight: 100
+  wildcardPolicy: None

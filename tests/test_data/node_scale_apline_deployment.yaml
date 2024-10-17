@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apline-deployment
+  labels:
+    test: node-scale-test
+  namespace: node-scale
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      test: node-scale-test
+  template:
+    metadata:
+      labels:
+        test: node-scale-test
+    spec:
+      containers:
+      - image: noiro-quay.cisco.com/noiro/alpine-utils:latest
+        command:
+        - sleep
+        - "3600"
+        imagePullPolicy: IfNotPresent
+        name: alpine-utils
+      restartPolicy: Always

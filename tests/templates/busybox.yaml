@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  {% if 'generate_name' in pod %}
+  generateName: {{ pod['generate_name'] }}
+  {% else %}
+  name: {{ pod['name'] }}
+  {% endif %}
+  {% if 'labels' in pod %}
+  labels:
+    {% for k, v in pod['labels'].items() %}
+    {{ k }}: {{ v }}
+    {% endfor %}
+  {% endif %}
+  namespace: {{ pod.get('namespace', 'default') }}
+spec:
+  containers:
+  - image: noiro-quay.cisco.com/noiro/busybox
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+    name: busybox
+  restartPolicy: Always
+  terminationGracePeriodSeconds: 0
+  {% if 'host_network' in pod %}
+  hostNetwork: {{ pod['host_network']}}
+  {% endif %}

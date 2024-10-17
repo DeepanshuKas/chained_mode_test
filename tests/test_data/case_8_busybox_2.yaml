@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: case8-ns-busybox-2
+  labels:
+    test: pol2
+  namespace: case8-ns
+spec:
+  containers:
+  - image: noiro-quay.cisco.com/noiro/busybox
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+    name: busybox
+  restartPolicy: Always

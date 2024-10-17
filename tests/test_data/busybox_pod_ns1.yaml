@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-pod
+  labels:
+    role: client
+  namespace: ns-1
+spec:
+  containers:
+  - image: noiro-quay.cisco.com/noiro/busybox
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+    name: busybox-container
+  restartPolicy: Always

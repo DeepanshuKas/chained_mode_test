@@ -1,0 +1,22 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: nginx-deployment-test
+  labels:
+    app: nginx1
+spec:
+  selector:
+    matchLabels:
+      app: nginx1
+  replicas: 3 # tells deployment to run 3 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: nginx1
+    spec:
+      containers:
+      - name: nginx1
+        image: noiro-quay.cisco.com/noiro/nginx:1.15.4
+        ports:
+        - containerPort: 80
+        imagePullPolicy: IfNotPresent

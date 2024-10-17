@@ -1,0 +1,38 @@
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: {{ input['name'] }}
+spec:
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
+  maxUnavailable: 3
+  desiredState:
+    interfaces:
+      - name: {{ input['interface_name'] }}
+        description: {{ input['nad_name'] }}
+        type: {{ input['interface_type'] }}
+        state: {{ input['state'] }}
+        {% if input['interface_type'] == 'vlan' %}
+        vlan:
+          base-iface: {{ input['base_interface'] }}
+          id: {{ input['vlan'] }}
+        ipv4:
+          enabled: false
+        {% endif %}
+        {% if input['interface_type'] == 'linux-bridge' %}
+        bridge:
+          options:
+            stp:
+              enabled: false
+          port:
+          - name: {{ input['base_interface'] }}
+        {% endif %}
+        {% if input['interface_type'] == 'ovs-bridge' %}
+        lldp:
+          enabled: true
+        bridge:
+          options:
+            stp: false
+          port:
+          - name: {{ input['base_interface'] }}
+        {% endif %}

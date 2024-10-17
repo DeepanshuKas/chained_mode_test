@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: case26-nginx
+  namespace: case26-ns
+  labels:
+    test: case26-label
+spec:
+  containers:
+  - name: case26-ns-nginx
+    image: noiro-quay.cisco.com/noiro/nginx-non-root:un
+    ports:
+    - containerPort: 8080
+    imagePullPolicy: IfNotPresent

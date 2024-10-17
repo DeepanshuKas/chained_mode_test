@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ input['name'] }}
+  {% if 'labels' in input %}
+  labels:
+    {% for k, v in input['labels'].items() %}
+    {{ k }}: {{ v }}
+    {% endfor %}
+  {% endif %}
+  {% if 'annotations' in input %}
+  annotations:
+    k8s.v1.cni.cncf.io/networks: '{{input['annotations']}}'
+  {% endif %}
+  namespace: {{ input.get('namespace', 'default') }}
+spec:
+  {% if 'node_name' in input %}
+  nodeName: {{ input['node_name']}}
+  {% endif %}
+  containers:
+  - name: network-multitool
+    image: wbitt/network-multitool
+    securityContext:
+      capabilities:
+        add:
+          - SYS_ADMIN
+          - NET_ADMIN
+          - SYS_PTRACE
+          - NET_RAW
+    imagePullPolicy: IfNotPresent
+  imagePullSecrets:
+  - name: regcred

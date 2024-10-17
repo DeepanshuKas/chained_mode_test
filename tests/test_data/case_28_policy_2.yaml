@@ -1,0 +1,11 @@
+apiVersion: aci.snat/v1
+kind: SnatPolicy
+metadata:
+  name: case28-snatpolicy-2
+spec:
+  snatIp:
+    -  151.20.1.177
+  selector:
+    namespace: case28-ns
+    labels:
+      test: case28-label

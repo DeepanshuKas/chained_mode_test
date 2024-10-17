@@ -1,0 +1,22 @@
+apiVersion: apps/v1 
+kind: DaemonSet
+metadata:
+  name: nginx-ds
+  labels:
+    test: sample-snatpolicy
+    app: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: noiro-quay.cisco.com/noiro/nginx-non-root:un
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: IfNotPresent

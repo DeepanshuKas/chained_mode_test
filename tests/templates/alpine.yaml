@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  {% if 'generate_name' in pod %}
+  generateName: {{ pod['generate_name'] }}
+  {% else %}
+  name: {{ pod['name'] }}
+  {% endif %}
+  {% if 'labels' in pod %}
+  labels:
+    {% for k, v in pod['labels'].items() %}
+    {{ k }}: {{ v }}
+    {% endfor %}
+  {% endif %}
+  {% if 'annotations' in pod %}
+  annotations:
+    opflex.cisco.com/endpoint-group: '{{pod['annotations']}}'
+  {% endif %}
+  namespace: {{ pod.get('namespace', 'default') }}
+spec:
+  {% if 'node_name' in pod %}
+  nodeName: {{ pod['node_name']}}
+  {% endif %}
+  containers:
+  - image: noiro-quay.cisco.com/noiro/alpine-utils
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+    name: alpine-utils
+  restartPolicy: Always
+  terminationGracePeriodSeconds: 0
+  {% if 'host_network' in pod %}
+  hostNetwork: {{ pod['host_network']}}
+  {% endif %}

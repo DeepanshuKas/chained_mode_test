@@ -1,0 +1,16 @@
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: {{ input['name'] }}
+  namespace: {{ input.get('namespace', 'default') }}
+  {% if 'annotations' or 'vlan_list' in input %}
+  annotations:
+  {% endif %}
+  {% if 'annotations' in input %}
+    k8s.v1.cni.cncf.io/resourceName: '{{ input['annotations'] }}'
+  {% endif %}
+  {% if 'vlan_list' in input %}
+    netop-cni.cisco.com/vlans: '{{ input['vlan_list'] }}'
+  {% endif %}
+spec:
+  config: '{{ input.get('config', '{}') }}'

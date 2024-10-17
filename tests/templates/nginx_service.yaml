@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ input['name'] }}
+  {% if 'labels' in input %}
+  labels:
+    {% for k, v in input['labels'].items() %}
+    {{ k }}: {{ v }}
+    {% endfor %}
+  {% endif %}
+  {% if 'lb_ip_annotation' in input %}
+  annotations:
+    opflex.cisco.com/lb-ipam-ips: {{ input['lb_ip_annotation'] | join(',') }}
+  {% endif %}
+  namespace: {{ input.get('namespace', 'default') }}
+spec:
+  selector:
+    {% if 'selector' in input %}
+    {% for k, v in input['selector'].items() %}
+    {{ k }}: {{ v }}
+    {% endfor %}
+    {% else %}
+    app: nginx
+    {% endif %}
+  ports:
+    - protocol: TCP
+      {% if 'port_name' in input %}
+      name: {{ input['port_name'] }}
+      {% endif %}
+      port: {{ input.get('port', 9995) }}
+      targetPort: {{ input.get('target_port', 8080) }}
+  type: {{ input.get('lb_type', LoadBalancer) }}
+  {% if 'load_balancer_ip' in input %}
+  loadBalancerIP:  {{ input['load_balancer_ip'] }}
+  {% endif %}
+  {% if 'topology_keys' in input %}
+  topologyKeys:
+    {% for key in input['topology_keys'] %}
+    - {{ key }}
+    {% endfor %}
+  {% endif %}

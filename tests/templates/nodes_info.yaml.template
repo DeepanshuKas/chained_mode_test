@@ -1,0 +1,36 @@
+---
+description: "node details of setup"
+manager_nodes:
+  -
+    host_ip: "192.168.{{cluster_id}}.2"
+    hostname: k8s{{cluster_id}}-node-1.local.lan
+    password: 'noir0123'
+    username: noiro
+name: ClusterDetails
+worker_nodes:
+  -
+    host_ip: "192.168.{{cluster_id}}.3"
+    hostname: k8s{{cluster_id}}-node-2.local.lan
+    password: 'noir0123'
+    username: noiro
+  -
+    host_ip: "192.168.{{cluster_id}}.4"
+    hostname: k8s{{cluster_id}}-node-3.local.lan
+    password: 'noir0123'
+    username: noiro
+  -
+    host_ip: "192.168.{{cluster_id}}.5"
+    hostname: k8s{{cluster_id}}-node-4.local.lan
+    password: 'noir0123'
+    username: noiro
+  -
+    host_ip: "192.168.{{cluster_id}}.6"
+    hostname: k8s{{cluster_id}}-node-5.local.lan
+    password: 'noir0123'
+    username: noiro
+external_router_nodes:
+  -
+    host_ip: "192.168.199.{{cluster_id}}"
+    hostname: k8s{{cluster_id}}-ext-rtr.local.lan
+    password: 'noir0123'
+    username: noiro

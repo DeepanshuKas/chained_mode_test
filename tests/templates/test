@@ -1,0 +1,37 @@
+apiVersion: aci.fabricattachment/v1
+kind: NetworkFabricConfiguration
+metadata:
+  name: {{ input['name'] }}
+  namespace: aci-containers-system
+spec:
+  {% if 'vlans' in input %}
+  vlans:
+  #{% if 'epg_details' in input %}
+  #{% for epg_detail in input['epg_details'] %}
+  - epg:
+    - bd:
+      common_tenant: false
+      name: bd105 #{{ epg_detail['bd_name'] }}
+      subnets:
+      - 10.5.0.1/24 #{{ epg_detail['subnets'] }}
+      vrf:
+        common_tenant: true
+        name: 'ocp-bm-1-vrf' #{{ input['vrf_name'] }}
+    contracts:
+      #consumer: #{{ epg_detail['provider_contract_name'] }}
+      #provider: #{{ epg_detail['provider_contract_name'] }}
+    name: 'test-epg1' #{{ epg_detail['epg_name'] }}
+    tenant: 'ocpbm1' #{{ input['tenant_name'] }}
+    vlans: "{{ input['vlans'] }}"
+  #{% endfor %}
+  {% else %}
+  - vlans: "{{ input['vlans'] }}"
+    aeps:
+    - {{ input['aeps'] }}
+  {% endif %}
+  {% else %}
+  nadVlanRefs:
+  - nadVlanLabel: {{ input['nadvlanlabel'] }}
+    aeps:
+    - {{ input['aeps'] }}
+  {% endif %}

@@ -1,0 +1,7 @@
+apiVersion: aci.snat/v1
+kind: SnatPolicy
+metadata:
+  name: case28-snatpolicy-1
+spec:
+  selector:
+    namespace: case28-ns

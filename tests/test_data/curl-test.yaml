@@ -1,0 +1,46 @@
+- hosts: localhost
+  connection: local
+  gather_facts: true
+  vars:
+    pod_count: 10
+    remove_old_pods: True
+
+  tasks:
+
+  - set_fact:
+      _list_random_strings: []
+
+  - name: print current time
+    debug:
+      msg: "Current Time: {{ ansible_date_time.iso8601 }}"    
+
+  - name: get current test pods
+    k8s_info:
+      kind: Pod
+      namespace: "{{ ns_name }}"
+      label_selectors:
+      - acicurl = test
+    register: dns_test_pods
+
+  - name: remove test pods
+    k8s:
+      state: absent
+      kind: Pod
+      name: "{{ item.metadata.name }}"
+      namespace: "{{ ns_name }}"
+    loop: "{{ dns_test_pods.resources }}"
+    no_log: true
+    when: remove_old_pods
+
+  - name: fill list with random strings
+    set_fact:
+      _list_random_strings: "{{ _list_random_strings + [ lookup('password', '/dev/null length=5 chars=digits') | string  ] }}"
+    loop: "{{ range(0, pod_count|int + 1) | list }}"
+
+  - name: create {{ pod_count }} test pods
+    k8s:
+      state: present
+      definition: "{{ lookup('template', t_name) }}"
+    loop: "{{ _list_random_strings }}"
+    loop_control:
+      loop_var: _my_loop_var

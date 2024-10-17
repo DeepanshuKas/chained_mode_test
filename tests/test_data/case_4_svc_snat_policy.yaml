@@ -1,0 +1,10 @@
+apiVersion: aci.snat/v1
+kind: SnatPolicy
+metadata:
+  name: case4-svc-snatpolicy
+spec:
+  snatIp:
+  selector:
+     namespace: default
+     labels:
+       test: case4-policy

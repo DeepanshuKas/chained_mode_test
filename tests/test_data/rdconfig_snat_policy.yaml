@@ -1,0 +1,14 @@
+apiVersion: aci.snat/v1
+kind: SnatPolicy
+metadata:
+  name: rdconfig-effect-snat-policy
+  namespace: rdcfg-ns
+spec:
+  selector:
+    namespace: rdcfg-ns
+    labels:
+      test: rdconfig-effect
+  snatIp:
+    - 151.20.1.69
+  destIp:
+    - 100.100.100.0/24

@@ -1,0 +1,13 @@
+apiVersion: aci.erspan/v1alpha
+kind: ErspanPolicy
+metadata:
+  name: erspan-policy-ns
+  namespace: default
+spec:
+  selector:
+    namespace: default
+  source:
+    adminState: "start"
+    direction: "both"
+  destination:
+    destIP: "1.1.1.1"

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: named-port-pod
+  labels:
+    app: named-port-pod
+spec:
+  containers:
+  - name: myapp-container
+    image: noiro-quay.cisco.com/noiro/nginx-non-root:un
+    ports:
+    - containerPort: 8080
+      name: allow-port
+

@@ -1,0 +1,7 @@
+apiVersion: aci.snat/v1
+kind: SnatPolicy
+metadata:
+  name: case26-cluster-snatpolicy
+spec:
+  snatIp:
+    -  151.20.1.203

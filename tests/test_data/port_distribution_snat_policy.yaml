@@ -1,0 +1,12 @@
+apiVersion: aci.snat/v1
+kind: SnatPolicy
+metadata:
+  name: port-distribution-policy
+  namespace: port-distribution-ns
+spec:
+  selector:
+    namespace: port-distribution-ns
+  snatIp:
+    - 151.20.1.59
+  destIp:
+    - 100.100.100.0/24

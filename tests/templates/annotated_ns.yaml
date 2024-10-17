@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  {% if 'label' in input %}
+  labels:
+    ns: {{ input['label'] }}
+  {% endif %}
+  name: {{ input["name"] }}
+  annotations:
+    opflex.cisco.com/endpoint-group: '{"tenant": "{{ input["tenant"] }}" ,"app-profile": "{{ input["app_profile"] }}", "name": "{{ input["epg"] }}"}'

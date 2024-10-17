@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: shared-service
+  annotations:
+    opflex.cisco.com/ext_service_contract_scope: global
+spec:
+  selector:
+    app: nginx1
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+

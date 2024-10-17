@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ pod['name'] }}
+  {% if 'label' in pod %}
+  labels:
+    test: {{ pod['label'] }}
+  {% endif %}
+{% if 'annotations' in pod %}
+  annotations:
+    opflex.cisco.com/endpoint-group: '{{pod['annotations']}}' 
+{% endif %}
+{% if 'namespace' in pod %}
+  namespace: {{ pod['namespace'] }}
+{% else %}
+  namespace: {{ 'default' }}
+{% endif %}
+spec:
+  containers:
+  - image: noiro-quay.cisco.com/noiro/zmq-networking
+    imagePullPolicy: IfNotPresent
+    name: networking
+  restartPolicy: Always

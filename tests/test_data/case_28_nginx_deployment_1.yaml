@@ -1,0 +1,23 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: case28-nginx-deployment-1
+  labels:
+    app: nginx-1
+  namespace: case28-ns
+spec:
+  selector:
+    matchLabels:
+      app: nginx-1
+  replicas: 3 # tells deployment to run 3 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: nginx-1
+    spec:
+      containers:
+      - name: case28-nginx-dep1
+        image: noiro-quay.cisco.com/noiro/nginx-non-root:un
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: IfNotPresent

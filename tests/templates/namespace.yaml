@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ input['name'] }}
+  {% if 'labels' in input %}
+  labels:
+    {% for k, v in input['labels'].items() %}
+    {{ k }} : {{ v }}
+    {% endfor %}
+    {% endif %}

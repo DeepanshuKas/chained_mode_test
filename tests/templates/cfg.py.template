@@ -1,0 +1,56 @@
+SNAT_FILE_PATH = '/var/lib/opflex-agent-ovs/snats/'
+EP_FILE_PATH = '/var/lib/opflex-agent-ovs/endpoints/'
+
+# File name with 'null-mac' substring will be searched in EP_FILE_PATH on all
+# nodes.
+NULL_MAC_FILE_SEARCH_STR = 'null-mac'
+
+# If REMOTE_ROUTER is set True, then framework will consider test running node
+# different from external router. User must pass external router info in
+# 'external_router_nodes' section of './nodes_info.yaml' input file.
+#
+# All the below information EXTERNAL_ROUTER_INTERFACE, EXTERNAL_ROUTER_IP,
+# EXTERNAL_LISTENING_PORT, EXTERNAL_IP_POOL will be considered part of
+# external router.
+#
+# By default, REMOTE_ROUTER is set to False, in which test framework considers
+# test running node as external router.
+#
+# Important - screen needs to be installed on REMOTE_ROUTER irrespective of
+# True or False, otherwise tests will fail. This is a temporary limitation.
+#
+REMOTE_ROUTER = False
+EXTERNAL_ROUTER_INTERFACE = 'eth0'
+EXTERNAL_ROUTER_IP = '192.168.199.{{cluster_id}}'
+EXTERNAL_LISTENING_PORT = '8888'
+EXTERNAL_IP_POOL = ['100.100.100.100', '100.100.100.101', '100.100.100.102',
+                    '100.100.100.103', '100.100.100.104', '100.100.100.105',
+                    '100.100.100.106', '100.100.100.107', '100.100.100.108',
+                    '100.100.100.109']
+
+# For python 3.x version, set to 3.
+HTTP_SERVER_VERSION = 3
+
+# If sets to True, tests will clean the resources which got created. If False,
+# resources will be left as it is only to get cleaned manually. Very useful for
+# developers.
+CLEAN_IF_FAIL = True
+
+# If sets to True, pkt generated during traffic validation are captured on
+# server side using tcpdump.
+PKT_CAPTURE_ENABLED = False
+
+CRD_NAMESPACE = 'aci-containers-system'
+KUBE_SYSTEM = 'kube-system'
+ACI_PREFIX = 'aci-containers'
+
+APIC_PROVISION_FILE = ""
+
+# Set the network timeout to seconds for wget
+WGET_CONNECTION_TIMEOUT = '60'
+WGET_RETIRES = '2'
+
+# APIC creds
+APIC_USERNAME = ""
+APIC_PASSWORD = ""
+

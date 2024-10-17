@@ -1,0 +1,12 @@
+apiVersion: aci.snat/v1
+kind: SnatPolicy
+metadata:
+  name: case13-snatpolicy
+spec:
+  snatIp:
+    -  151.20.1.125
+  selector:
+    namespace: default
+    labels:
+      test1: case13-policy-l1
+#      test2: case13-policy-l2

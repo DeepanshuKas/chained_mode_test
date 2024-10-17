@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: case12-ns-nginx
+  namespace: case12-ns
+spec:
+  containers:
+  - name: case12-ns-nginx
+    image: noiro-quay.cisco.com/noiro/nginx-non-root:un
+    ports:
+    - containerPort: 8080
+    imagePullPolicy: IfNotPresent

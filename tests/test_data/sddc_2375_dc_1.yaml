@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: httpd-tools-app-1
+  name: httpd-tools-app-1
+  namespace: ci-sddc2375-network-policies-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpd-tools-app-1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: httpd-tools-app-1
+    spec:
+      containers:
+      - image: noiro-quay.cisco.com/noiro/network-multitool
+        imagePullPolicy: IfNotPresent
+        name: httpd-tools-app-1
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext:
+        runAsUser: 0
+      serviceAccount: runasanyuid
+      serviceAccountName: runasanyuid

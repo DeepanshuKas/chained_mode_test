@@ -1,0 +1,30 @@
+---
+description: "node details of setup"
+manager_nodes:
+  -
+    host_ip: "192.168.2.21"
+    hostname: kube-ee1
+    password: ''
+    username: root
+    key_filename: '/path/to/identity/file'
+name: ClusterDetails
+worker_nodes:
+  -
+    host_ip: "192.168.2.22"
+    hostname: kube-ee2
+    password: ''
+    username: root
+    key_filename: '/path/to/identity/file'
+  -
+    host_ip: "192.168.2.23"
+    hostname: kube-ee3
+    password: ''
+    username: root
+    key_filename: '/path/to/identity/file'
+external_router_nodes:
+  -
+    host_ip: "100.100.100.100"
+    hostname: fabnotfound
+    password: ''
+    username: routernotfound
+    key_filename: '/path/to/identity/file'

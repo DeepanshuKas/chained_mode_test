@@ -1,0 +1,15 @@
+apiVersion: aci.qos/v1
+kind: QosPolicy
+metadata:
+  name: test-qospolicy
+spec:
+  podSelector:
+    matchLabels:
+      test: sample-qospolicy
+  ingress:
+    policing_rate : 1000
+    policing_burst: 1000
+  egress:
+    policing_rate:  1000
+    policing_burst: 2000
+  dscpmark: 10

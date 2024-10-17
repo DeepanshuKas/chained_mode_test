@@ -1,0 +1,10 @@
+apiVersion: aci.fabricattachment/v1
+kind: NadVlanMap
+metadata:
+  name: {{ input['name'] }}
+  namespace: aci-containers-system
+spec:
+  nadVlanMapping:
+    "{{ input['namespace']}}/{{ input['nad_prefix'] }}":
+    - label: {{ input['network_name'] }}
+      vlans: "{{ input['vlans'] }}"

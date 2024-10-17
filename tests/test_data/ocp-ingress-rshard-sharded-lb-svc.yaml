@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
+  labels:
+    app: router
+    ingresscontroller.operator.openshift.io/owning-ingresscontroller: sharded
+    router: router-sharded
+  name: router-sharded
+  namespace: openshift-ingress
+spec:
+  externalTrafficPolicy: Local
+  healthCheckNodePort: 32217
+  ports:
+  - name: http
+    nodePort: 31343
+    port: 80
+    protocol: TCP
+    targetPort: http
+  - name: https
+    nodePort: 30987
+    port: 443
+    protocol: TCP
+    targetPort: https
+  selector:
+    ingresscontroller.operator.openshift.io/deployment-ingresscontroller: sharded
+  sessionAffinity: None
+  type: LoadBalancer

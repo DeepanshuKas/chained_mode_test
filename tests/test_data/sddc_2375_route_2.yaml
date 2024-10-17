@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: httpd-tools-app-1
+  name: httpd-tools-app-1
+  namespace: ci-sddc2375-network-policies-b
+spec:
+  port:
+    targetPort: 8080
+  subdomain: ""
+  to:
+    kind: Service
+    name: httpd-tools-app-1
+    weight: 100
+  wildcardPolicy: None

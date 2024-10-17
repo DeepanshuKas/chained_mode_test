@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ input['name'] }}
+  namespace: {{ input.get('namespace', 'default') }}
+spec:
+  selector:
+    matchLabels:
+      {% if 'selector' in input %}
+      {% for k, v in input['selector'].items() %}
+      {{ k }}: {{ v }}
+      {% endfor %}
+      {% else %}
+      name: nginx-ds-dp
+      {% endif %}
+  template:
+    metadata:
+      labels:
+        {% if 'selector' in input and input['selector'] %}
+        {% for k, v in input['selector'].items() %}
+        {{ k }}: {{ v }}
+        {% endfor %}
+        {% else %}
+        name: nginx-ds-dp
+        {% endif %}
+    spec:
+      {% if 'runonmaster' in input %}
+      {% if input.get('runonmaster', False) == True %}
+      tolerations:
+      - operator: Exists
+      {% endif %}
+      {% endif %}
+      containers:
+      - name: nginx
+        image: noiro-quay.cisco.com/noiro/nginx-non-root:un
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: IfNotPresent

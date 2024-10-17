@@ -1,0 +1,15 @@
+apiVersion: aci.erspan/v1alpha
+kind: ErspanPolicy
+metadata:
+  name: erspan-policy-labels
+  namespace: default
+spec:
+  selector:
+    labels:
+      test: case6-policy
+    namespace: default
+  source:
+    adminState: "start"
+    direction: "both"
+  destination:
+    destIP: "1.1.1.1"

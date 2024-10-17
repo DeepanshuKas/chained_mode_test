@@ -1,0 +1,15 @@
+---
+Description: Contains input to control execution of test cases
+# resources - list of kubernetes kind/resources of which tests
+# will be tuned
+resources:
+  - snatpolicy
+  - networkpolicy
+  - svc_file
+
+# wait for 10 sec after snatpolicy to converge after create.
+snatpolicy_convergence_timeout: 10
+networkpolicy_convergence_timeout: 10
+
+# no of retries
+retries: 1

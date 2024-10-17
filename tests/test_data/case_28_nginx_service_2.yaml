@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: case28-nginx-svc-2
+  namespace: case28-ns
+spec:
+  selector:
+    app: nginx-2
+  ports:
+    - protocol: TCP
+      port: 9995
+      targetPort: 8080
+  type: LoadBalancer

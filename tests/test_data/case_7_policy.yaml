@@ -1,0 +1,9 @@
+apiVersion: aci.snat/v1
+kind: SnatPolicy
+metadata:
+  name: case7-snatpolicy
+spec:
+  snatIp:
+    -  151.20.1.53
+  selector:
+    namespace: case7-ns

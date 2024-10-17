@@ -1,0 +1,11 @@
+apiVersion: aci.snat/v1
+kind: SnatPolicy
+metadata:
+  name: case8-policy2
+spec:
+  snatIp:
+    -  151.20.1.99
+  selector:
+    namespace: case8-ns
+    labels:
+      test: pol2

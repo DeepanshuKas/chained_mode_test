@@ -1,0 +1,12 @@
+apiVersion: aci.snat/v1
+kind: SnatPolicy
+metadata:
+  name: port-over-limit-policy
+  namespace: port-over-limit-ns
+spec:
+  selector:
+    namespace: port-over-limit-ns
+  snatIp:
+    - 151.20.1.39
+  destIp:
+    - 100.100.100.0/24

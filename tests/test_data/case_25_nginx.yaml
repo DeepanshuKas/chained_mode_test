@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: case25-nginx
+  namespace: case25-ns
+  labels:
+    test: case25-label
+spec:
+  containers:
+  - name: case25-ns-nginx
+    image: noiro-quay.cisco.com/noiro/nginx-non-root:un
+    ports:
+    - containerPort: 8080
+    imagePullPolicy: IfNotPresent

@@ -1,0 +1,10 @@
+apiVersion: aci.fabricattachment/v1
+kind: FabricVlanPool
+metadata:
+    name: {{ input['name'] }}
+    namespace: {{ input.get('namespace', 'default') }}
+spec:
+  vlans:
+    {% for vlan in input['vlans'] %}
+    - {{ vlan }}
+    {% endfor %}

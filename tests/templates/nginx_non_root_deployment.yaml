@@ -1,0 +1,39 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ input['name'] }}
+  {% if 'labels' in input %}
+  labels:
+    {% for k, v in input['labels'].items() %}
+    {{ k }} : {{ v }}
+    {% endfor %}
+    {% endif %}
+  namespace: {{ input.get('namespace', 'default') }}
+spec:
+  selector:
+    matchLabels:
+      {% if 'selector' in input %}
+      {% for k, v in input['selector'].items() %}
+      {{ k }}: {{ v }}
+      {% endfor %}
+      {% else %}
+      app: nginx
+      {% endif %}
+  replicas: {{ input.get('replicas', 3) }}
+  template:
+    metadata:
+      labels:
+        {% if 'selector' in input %}
+        {% for k, v in input['selector'].items() %}
+        {{ k }}: {{ v }}
+        {% endfor %}
+        {% else %}
+        app: nginx
+        {% endif %}
+    spec:
+      containers:
+      - name: nginx
+        image: noiro-quay.cisco.com/noiro/nginx-non-root:un
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: IfNotPresent
